@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ data.name }} – Portfólio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <!-- Rajdhani + Space Grotesk via Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+<!-- ── CANVAS estrelas ───────────────────────────────────────────── -->
+<canvas id="stars-canvas"></canvas>
+
+<!-- ── NAV ─────────────────────────────────────────────────────── -->
+<nav id="navbar">
+    <div class="nav-container">
+        <a class="nav-logo" href="#">&#9737; {{ data.name.split()[0] }}</a>
+        <ul class="nav-links">
+            <li><a href="#sobre">  Sobre</a></li>
+            <li><a href="#habilidades">Habilidades</a></li>
+            <li><a href="#projetos">Projetos</a></li>
+            <li><a href="#experiencia">Experiência</a></li>
+            <li><a href="#contato">Contato</a></li>
+        </ul>
+        
+    </div>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────────────────────── -->
+<section id="hero">
+
+    <!-- meteoros -->
+    <div class="meteor m1"></div>
+    <div class="meteor m2"></div>
+    <div class="meteor m3"></div>
+
+    <div class="hero-text">
+       
+        <h1 class="hero-headline">Bem Vindo ao Meu<br>Portfólio</h1>
+        <h2 class="hero-iam">Eu sou <span id="typing-text"></span></h2>
+    </div>
+
+   
+        <!-- Terminal animado -->
+        <div class="terminal" id="terminal">
+            <div class="terminal-bar">
+                <span class="t-dot td-red"></span>
+                <span class="t-dot td-yellow"></span>
+                <span class="t-dot td-green"></span>
+                <span class="t-title"></span>
+            </div>
+            <div class="terminal-body" id="terminal-body"></div>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ── SOBRE ─────────────────────────────────────────────────────── -->
+<section id="sobre" class="section">
+    <div class="container">
+        <h2 class="section-title"><span>// </span>SOBRE MIM</h2>
+        <div class="about-grid">
+            <div class="about-avatar">
+    <div class="avatar-hex">
+        <img 
+            src="{{ url_for('static', filename='img/perfil.jpg') }}" 
+            alt="Foto de Luís Felipe"
+        >
+    </div>
+
+    <div class="orbit-ring"></div>
+</div>
+            <div class="about-text">
+                <p>{{ data.about }}</p>
+                <div class="about-info">
+                    <div class="info-item"><i class="fas fa-envelope"></i> {{ data.email }}</div>
+                    <div class="info-item"><i class="fab fa-github"></i> <a href="{{ data.github }}" target="_blank">GitHub</a></div>
+                    <div class="info-item"><i class="fab fa-linkedin"></i> <a href="{{ data.linkedin }}" target="_blank">LinkedIn</a></div>
+                    <div class="info-item"><i class="fab fa-whatsapp"></i><a href="{{data.whatsapp }}"target="_blank">Whatsapp</a></div>
+                </div>
+                <div class="hero-buttons">
+                    <a href="{{ data.github }}" target="_blank" class="btn btn-primary"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="#contato" class="btn btn-outline"><i class="fas fa-paper-plane"></i> Contato</a>
+                    <a href="{{ data.whatsapp }}" target="_blank" class="btn btn-primary"><i class="fab fa-whatsapp"></i> Whatsapp</a>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── HABILIDADES ───────────────────────────────────────────────── -->
+<section id="habilidades" class="section alt">
+    <div class="container">
+        <h2 class="section-title"><span>// </span>HABILIDADES</h2>
+        <div class="skills-grid">
+            {% for skill in data.skills %}
+            <div class="skill-card">
+                <div class="skill-header">
+                    <span class="skill-name">{{ skill.name }}</span>
+                    <span class="skill-pct">{{ skill.level }}%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-fill" data-level="{{ skill.level }}"></div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ── PROJETOS ──────────────────────────────────────────────────── -->
+<section id="projetos" class="section">
+    <div class="container">
+        <h2 class="section-title"><span>// </span>PROJETOS</h2>
+        <div class="projects-grid">
+            {% for proj in data.projects %}
+            <div class="project-card">
+                <div class="project-icon"><i class="fas fa-satellite"></i></div>
+                <h3>{{ proj.title }}</h3>
+                <p>{{ proj.description }}</p>
+                <div class="project-tags">
+                    {% for t in proj.tech %}
+                    <span class="ptag">{{ t }}</span>
+                    {% endfor %}
+                </div>
+                
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ── EXPERIÊNCIA ───────────────────────────────────────────────── -->
+<section id="experiencia" class="section alt">
+    <div class="container">
+        <h2 class="section-title"><span>// </span>EXPERIÊNCIA</h2>
+        <div class="timeline">
+            {% for exp in data.experience %}
+            <div class="timeline-item">
+                <div class="tl-dot"><i class="fas fa-rocket"></i></div>
+                <div class="tl-content">
+                    <h3>{{ exp.role }}</h3>
+                    <p class="tl-company">
+                        <i class="fas fa-building"></i> {{ exp.company }}
+                        &nbsp;|&nbsp;
+                        <i class="fas fa-calendar-alt"></i> {{ exp.period }}
+                    </p>
+                    <p>{{ exp.desc }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ── CONTATO ───────────────────────────────────────────────────── -->
+<section id="contato" class="section">
+    <div class="container">
+        <h2 class="section-title"><span>// </span>CONTATO</h2>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <p>Tem um projeto em mente ou quer conversar? Mande uma mensagem pelo universo!</p>
+                <div class="contact-links">
+                    <a href="mailto:{{ data.email }}"><i class="fas fa-envelope"></i> {{ data.email }}</a>
+                    <a href="{{ data.github }}" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="{{ data.linkedin }}" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="{{data.whatsapp }}"target="_blank"><i class="fab fa-whatsapp"></i>Whatsapp</a>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────────────────── -->
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
