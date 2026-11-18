@@ -3,111 +3,181 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ data.name }} – Portfólio</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
-    <!-- Rajdhani + Space Grotesk via Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <title>{{ data.name }} – {{ data.title }}</title>
+    <meta name="description" content="{{ data.name }} – {{ data.title }}. {{ data.about[0][:140] }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 </head>
 <body>
-
-<!-- ── CANVAS estrelas ───────────────────────────────────────────── -->
-<canvas id="stars-canvas"></canvas>
+{% set first = data.name.split()[0] %}
+{% set last = data.name.split()[1:]|join(' ') %}
 
 <!-- ── NAV ─────────────────────────────────────────────────────── -->
-<nav id="navbar">
-    <div class="nav-container">
-        <a class="nav-logo" href="#">&#9737; {{ data.name.split()[0] }}</a>
-        <ul class="nav-links">
-            <li><a href="#sobre">  Sobre</a></li>
-            <li><a href="#habilidades">Habilidades</a></li>
-            <li><a href="#projetos">Projetos</a></li>
-            <li><a href="#experiencia">Experiência</a></li>
-            <li><a href="#contato">Contato</a></li>
-        </ul>
-        
+<header id="navbar">
+    <div class="container nav-container">
+        <a class="brand" href="#inicio">
+            <span class="brand-name">{{ first }} <span class="hl">{{ last }}</span></span>
+            <span class="brand-role">{{ data.title }}</span>
+        </a>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <nav class="nav-menu" id="nav-menu">
+            <ul class="nav-links">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#experiencia">Experiência</a></li>
+                <li><a href="#projetos">Projetos</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+            <a href="{{ data.whatsapp }}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Contrate-me</a>
+        </nav>
     </div>
-</nav>
+</header>
+
+<main>
 
 <!-- ── HERO ─────────────────────────────────────────────────────── -->
-<section id="hero">
+<section id="inicio" class="hero">
+    <div class="container hero-grid">
+        <div class="hero-text">
+            <p class="hello">Olá, eu sou</p>
+            <h1>{{ data.name }}</h1>
+            <p class="hero-role">{{ data.title }}</p>
+            <p class="hero-lead">Desenvolvo aplicações e lojas virtuais orientadas a resultados, com a experiência de quem vive a infraestrutura de TI na prática.</p>
 
-    <!-- meteoros -->
-    <div class="meteor m1"></div>
-    <div class="meteor m2"></div>
-    <div class="meteor m3"></div>
-
-    <div class="hero-text">
-       
-        <h1 class="hero-headline">Bem Vindo ao Meu<br>Portfólio</h1>
-        <h2 class="hero-iam">Eu sou <span id="typing-text"></span></h2>
-    </div>
-
-   
-        <!-- Terminal animado -->
-        <div class="terminal" id="terminal">
-            <div class="terminal-bar">
-                <span class="t-dot td-red"></span>
-                <span class="t-dot td-yellow"></span>
-                <span class="t-dot td-green"></span>
-                <span class="t-title"></span>
+            <div class="hero-actions">
+                <a href="#projetos" class="btn btn-primary">Ver meus projetos <i class="fa-solid fa-arrow-right"></i></a>
+                <a href="#contato" class="btn btn-ghost"><i class="fa-regular fa-envelope"></i> Fale comigo</a>
             </div>
-            <div class="terminal-body" id="terminal-body"></div>
+
+            <div class="tech">
+                <p>Tecnologias que uso</p>
+                <ul>
+                    <li><i class="fab fa-python"></i> Python</li>
+                    <li><i class="fab fa-java"></i> Java</li>
+                    <li><i class="fab fa-js"></i> JavaScript</li>
+                    <li><i class="fab fa-html5"></i> HTML/CSS</li>
+                    <li><i class="fa-solid fa-flask"></i> Flask</li>
+                </ul>
+            </div>
         </div>
 
+        <div class="hero-photo">
+            <img src="{{ url_for('static', filename='img/perfil-camisa2.png') }}" alt="Foto de {{ data.name }}" />
+        </div>
     </div>
-
 </section>
 
 <!-- ── SOBRE ─────────────────────────────────────────────────────── -->
 <section id="sobre" class="section">
-    <div class="container">
-        <h2 class="section-title"><span>// </span>SOBRE MIM</h2>
-        <div class="about-grid">
-            <div class="about-avatar">
-    <div class="avatar-hex">
-        <img 
-            src="{{ url_for('static', filename='img/perfil.jpg') }}" 
-            alt="Foto de Luís Felipe"
-        >
-    </div>
-
-    <div class="orbit-ring"></div>
-</div>
+    <div class="container about-grid">
+        <div>
+            <p class="kicker">Sobre mim</p>
+            <h2 class="title">Construindo soluções que<br>geram impacto</h2>
             <div class="about-text">
-                <p>{{ data.about }}</p>
-                <div class="about-info">
-                    <div class="info-item"><i class="fas fa-envelope"></i> {{ data.email }}</div>
-                    <div class="info-item"><i class="fab fa-github"></i> <a href="{{ data.github }}" target="_blank">GitHub</a></div>
-                    <div class="info-item"><i class="fab fa-linkedin"></i> <a href="{{ data.linkedin }}" target="_blank">LinkedIn</a></div>
-                    <div class="info-item"><i class="fab fa-whatsapp"></i><a href="{{data.whatsapp }}"target="_blank">Whatsapp</a></div>
-                </div>
-                <div class="hero-buttons">
-                    <a href="{{ data.github }}" target="_blank" class="btn btn-primary"><i class="fab fa-github"></i> GitHub</a>
-                    <a href="#contato" class="btn btn-outline"><i class="fas fa-paper-plane"></i> Contato</a>
-                    <a href="{{ data.whatsapp }}" target="_blank" class="btn btn-primary"><i class="fab fa-whatsapp"></i> Whatsapp</a>
-                </div>
-               
+                {% for p in data.about %}
+                <p>{{ p }}</p>
+                {% endfor %}
             </div>
+
+            <ul class="checks">
+                <li><i class="fa-regular fa-calendar"></i> 4 anos de experiência em TI</li>
+                <li><i class="fa-solid fa-headset"></i> 2 anos no Suporte de TI da Aniger</li>
+                <li><i class="fa-solid fa-screwdriver-wrench"></i> 2 anos como Técnico de TI na Tec Soluções</li>
+                <li><i class="fa-solid fa-handshake"></i> Perfil empreendedor e negociação</li>
+            </ul>
+
+            <a href="{{ data.github }}" target="_blank" rel="noopener" class="btn btn-primary btn-sm"><i class="fab fa-github"></i> Ver meu GitHub</a>
+        </div>
+
+        <ul class="info-card">
+            <li>
+                <i class="fa-regular fa-envelope"></i>
+                <div><strong>E-mail</strong><a href="mailto:{{ data.email }}">{{ data.email }}</a></div>
+            </li>
+            <li>
+                <i class="fab fa-whatsapp"></i>
+                <div><strong>WhatsApp</strong><a href="{{ data.whatsapp }}" target="_blank" rel="noopener">{{ data.phone_display }}</a></div>
+            </li>
+            <li>
+                <i class="fab fa-linkedin-in"></i>
+                <div><strong>LinkedIn</strong><a href="{{ data.linkedin }}" target="_blank" rel="noopener">luis-felipe</a></div>
+            </li>
+            <li>
+                <i class="fab fa-github"></i>
+                <div><strong>GitHub</strong><a href="{{ data.github }}" target="_blank" rel="noopener">{{ data.github.rstrip('/').split('/')[-1] }}</a></div>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<!-- ── DIFERENCIAIS ──────────────────────────────────────────────── -->
+<section id="diferenciais" class="section">
+    <div class="container">
+        <div class="center-head">
+            <p class="kicker">Por que trabalhar comigo</p>
+            <h2 class="title">Principais diferenciais</h2>
+        </div>
+        <div class="diff-grid">
+            {% for d in data.differentials %}
+            <article class="card diff">
+                <h3>{{ d.title }}</h3>
+                <p>{{ d.desc }}</p>
+            </article>
+            {% endfor %}
         </div>
     </div>
 </section>
 
-<!-- ── HABILIDADES ───────────────────────────────────────────────── -->
-<section id="habilidades" class="section alt">
+<!-- ── SERVIÇOS ──────────────────────────────────────────────────── -->
+<section id="servicos" class="section">
     <div class="container">
-        <h2 class="section-title"><span>// </span>HABILIDADES</h2>
-        <div class="skills-grid">
-            {% for skill in data.skills %}
-            <div class="skill-card">
-                <div class="skill-header">
-                    <span class="skill-name">{{ skill.name }}</span>
-                    <span class="skill-pct">{{ skill.level }}%</span>
+        <div class="center-head">
+            <p class="kicker">Meus serviços</p>
+            <h2 class="title">O que posso fazer por você</h2>
+        </div>
+        <div class="services-grid">
+            {% for s in data.services %}
+            <article class="card service">
+                <i class="{{ s.icon }}"></i>
+                <h3>{{ s.title }}</h3>
+                <p>{{ s.desc }}</p>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ── EXPERIÊNCIA ───────────────────────────────────────────────── -->
+<section id="experiencia" class="section">
+    <div class="container">
+        <div class="row-head">
+            <p class="kicker">Experiência profissional</p>
+        </div>
+        <div class="exp-list">
+            {% for exp in data.experience %}
+            <article class="card exp-card">
+                <div class="exp-meta">
+                    <span class="exp-period">{{ exp.period }}</span>
+                    <span class="exp-company"><i class="fa-regular fa-building"></i> {{ exp.company }}</span>
                 </div>
-                <div class="skill-bar">
-                    <div class="skill-fill" data-level="{{ skill.level }}"></div>
+                <div class="exp-body">
+                    <h3>{{ exp.role }}</h3>
+                    <p>{{ exp.desc }}</p>
+                    {% if exp.highlights %}
+                    <ul class="exp-highlights">
+                        {% for h in exp.highlights %}
+                        <li><i class="fa-solid fa-check"></i> {{ h }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
                 </div>
-            </div>
+            </article>
             {% endfor %}
         </div>
     </div>
@@ -116,68 +186,56 @@
 <!-- ── PROJETOS ──────────────────────────────────────────────────── -->
 <section id="projetos" class="section">
     <div class="container">
-        <h2 class="section-title"><span>// </span>PROJETOS</h2>
-        <div class="projects-grid">
+        <div class="row-head">
+            <p class="kicker">Projetos</p>
+            <a href="{{ data.github }}" target="_blank" rel="noopener" class="see-all">Ver meu GitHub <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <div class="featured-grid">
             {% for proj in data.projects %}
-            <div class="project-card">
-                <div class="project-icon"><i class="fas fa-satellite"></i></div>
+            <article class="card featured">
+                <p class="featured-cat">{{ proj.category }}</p>
                 <h3>{{ proj.title }}</h3>
                 <p>{{ proj.description }}</p>
-                <div class="project-tags">
-                    {% for t in proj.tech %}
-                    <span class="ptag">{{ t }}</span>
-                    {% endfor %}
-                </div>
-                
-            </div>
+                {% if proj.tech %}
+                <ul class="langs">
+                    {% for t in proj.tech %}<li>{{ t }}</li>{% endfor %}
+                </ul>
+                {% endif %}
+            </article>
             {% endfor %}
         </div>
     </div>
 </section>
 
-<!-- ── EXPERIÊNCIA ───────────────────────────────────────────────── -->
-<section id="experiencia" class="section alt">
+<!-- ── CTA / CONTATO ─────────────────────────────────────────────── -->
+<section id="contato" class="cta">
     <div class="container">
-        <h2 class="section-title"><span>// </span>EXPERIÊNCIA</h2>
-        <div class="timeline">
-            {% for exp in data.experience %}
-            <div class="timeline-item">
-                <div class="tl-dot"><i class="fas fa-rocket"></i></div>
-                <div class="tl-content">
-                    <h3>{{ exp.role }}</h3>
-                    <p class="tl-company">
-                        <i class="fas fa-building"></i> {{ exp.company }}
-                        &nbsp;|&nbsp;
-                        <i class="fas fa-calendar-alt"></i> {{ exp.period }}
-                    </p>
-                    <p>{{ exp.desc }}</p>
-                </div>
-            </div>
-            {% endfor %}
+        <h2>Vamos trabalhar juntos</h2>
+        <p>Tem um projeto em mente ou uma vaga para mim?<br>Vamos conversar.</p>
+        <div class="cta-actions">
+            <a href="{{ data.whatsapp }}" target="_blank" rel="noopener" class="btn btn-primary"><i class="fab fa-whatsapp"></i> Chamar no WhatsApp</a>
+            <a href="mailto:{{ data.email }}" class="btn btn-ghost"><i class="fa-regular fa-envelope"></i> Enviar e-mail</a>
         </div>
     </div>
 </section>
 
-<!-- ── CONTATO ───────────────────────────────────────────────────── -->
-<section id="contato" class="section">
-    <div class="container">
-        <h2 class="section-title"><span>// </span>CONTATO</h2>
-        <div class="contact-grid">
-            <div class="contact-info">
-                <p>Tem um projeto em mente ou quer conversar? Mande uma mensagem pelo universo!</p>
-                <div class="contact-links">
-                    <a href="mailto:{{ data.email }}"><i class="fas fa-envelope"></i> {{ data.email }}</a>
-                    <a href="{{ data.github }}" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                    <a href="{{ data.linkedin }}" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                    <a href="{{data.whatsapp }}"target="_blank"><i class="fab fa-whatsapp"></i>Whatsapp</a>
-                </div>
-            </div>
-           
-        </div>
-    </div>
-</section>
+</main>
 
-<!-- ── FOOTER ────────────────────────────────────────────────────── -->
+<footer class="footer">
+    <div class="container footer-grid">
+        <div class="brand">
+            <span class="brand-name">{{ first }} <span class="hl">{{ last }}</span></span>
+            <span class="brand-role">{{ data.title }}</span>
+        </div>
+        <p>© {{ data.name }}. Todos os direitos reservados.</p>
+        <ul class="footer-social">
+            <li><a href="{{ data.linkedin }}" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a></li>
+            <li><a href="{{ data.github }}" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a></li>
+            <li><a href="{{ data.whatsapp }}" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></li>
+        </ul>
+    </div>
+</footer>
 
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
