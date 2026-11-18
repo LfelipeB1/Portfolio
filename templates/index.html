@@ -68,7 +68,7 @@
         </div>
 
         <div class="hero-photo">
-            <img src="{{ url_for('static', filename='img/perfil-camisa2.png') }}" alt="Foto de {{ data.name }}" />
+            <img src="{{ url_for('static', filename='img/perfil.png') }}" alt="Foto de {{ data.name }}" />
         </div>
     </div>
 </section>
@@ -144,7 +144,6 @@
         <div class="services-grid">
             {% for s in data.services %}
             <article class="card service">
-                <i class="{{ s.icon }}"></i>
                 <h3>{{ s.title }}</h3>
                 <p>{{ s.desc }}</p>
             </article>
