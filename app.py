@@ -24,7 +24,7 @@ PORTFOLIO_DATA = {
         ),
         (
             "Minha base técnica foi construída ao longo de 4 anos de atuação na área "
-            "de Tecnologia da Informação — sendo 2 anos no ambiente corporativo da "
+            "de Tecnologia da Informação, sendo 2 anos no ambiente corporativo da "
             "Aniger, atuando no Suporte de TI, e 2 anos como Técnico de TI na Tec "
             "Soluções. Essa vivência intensa na linha de frente, lidando diariamente "
             "com o atendimento de chamados, suporte direto ao usuário e diagnóstico "
